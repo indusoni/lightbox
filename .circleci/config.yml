@@ -12,6 +12,13 @@ jobs:
           name: Print the Current Time
           command: date
       - run:
+          name: Install deps
+          command: |
+            python --version
+            cp yarn.lock orig-yarn-lock-file
+            yarn
+            yarn cache dir    
+      - run:
           name: Test
           command: yarn test:ci    
       - run:
