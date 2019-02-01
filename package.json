@@ -10,8 +10,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:ci": "react-scripts test --env=jsdom --bail --maxWorkers=3",
+    "eject": "react-scripts eject",
+    "lint:ci": "eslint src --max-warnings 0",
   },
   "eslintConfig": {
     "extends": "react-app"
