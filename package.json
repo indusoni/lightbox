@@ -10,12 +10,23 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "sb": "start-storybook -p 9009 -s public",
+    "storybook": "start-storybook -p 9009 -s public",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom  --maxWorkers=3",
-    "test:ci": "react-scripts test --env=jsdom  --maxWorkers=3",
-    "eject": "react-scripts eject",
+    "build:ci": "react-scripts build",
+    "test": "react-scripts test --env=jsdom --bail --maxWorkers=3",
+    "test:ci": "CI=true react-scripts test --env=jsdom --maxWorkers=2",
+    "test:size": "react-scripts build && size-limit",
     "lint": "eslint src",
-    "lint:ci": "eslint src --max-warnings 0"
+    "lint:ci": "eslint src --max-warnings 0",
+    "fix": "eslint --fix src",
+    "fix-files-to-push": "eslint --quiet --fix src/index.js $(git diff --name-only --cached --diff-filter=CMRTUXB '*.js' && git ls-files --exclude-standard -o *[^.js$])",
+    "q": "eslint --fix $(git diff --cached --name-only --diff-filter=d HEAD | grep .js$)",
+    "e": "eslint src/index.js $(git diff --cached --name-only --diff-filter=d HEAD | grep .js$)",
+    "build-storybook": "build-storybook -c .storybook -o sb/out",
+    "size:why": "source-map-explorer build/static/js/main*.*js",
+    "size": "size-limit",
+    "bundle-analyzer": "NODE_ENV=production npx webpack --config ./node_modules/@indusoni/react-scripts/config/webpack.config.prod.js --output-path ./build --profile --json > ./build/stats.json && npx webpack-bundle-analyzer ./build/stats.json"
   },
   "eslintConfig": {
     "extends": "react-app"
